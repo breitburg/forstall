@@ -29,12 +29,13 @@ class SignalIndicator extends StatelessWidget {
 }
 
 class SignalPainter extends CustomPainter {
-  final double barCount, stregth, barSpacing;
+  final double barCount, stregth, barSpacing, minBarHeight;
 
   const SignalPainter({
     required this.stregth,
     this.barCount = 5,
     this.barSpacing = 1,
+    this.minBarHeight = 3,
   });
 
   @override
@@ -45,8 +46,10 @@ class SignalPainter extends CustomPainter {
     final activeBars = (barCount * stregth).round();
 
     for (var bar = 0; bar < barCount; bar++) {
-      final height =
-          bar < activeBars ? size.height * (bar + 1) / barCount : 1.0;
+      final factor = (bar + 1) / barCount;
+      final height = bar < activeBars
+          ? minBarHeight + (size.height - minBarHeight) * factor
+          : 1.0;
 
       canvas.drawRRect(
         RRect.fromRectAndRadius(

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:forstall/widgets/dock/dock.dart';
@@ -14,7 +16,9 @@ class ForstallApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const CupertinoApp(
       debugShowCheckedModeBanner: false,
-      home: Springboard(),
+      home: CupertinoPageScaffold(
+        child: Springboard(),
+      ),
     );
   }
 }
@@ -24,24 +28,27 @@ class Springboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    return CupertinoPageScaffold(
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Image.asset(
-            'assets/bubbles.jpeg',
-            fit: BoxFit.cover,
-          ),
-          Column(
-            children: const [
-              StatusBar.translucent(),
-              Spacer(),
-              Dock(),
-            ],
-          ),
-        ],
-      ),
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.asset(
+          'assets/bubbles.jpeg',
+          fit: BoxFit.cover,
+        ),
+        Column(
+          children: [
+            const StatusBar.translucent(),
+            Expanded(
+              child: PageView.builder(
+                itemBuilder: (BuildContext context, int index) {
+                  return const SizedBox();
+                },
+              ),
+            ),
+            const Dock(),
+          ],
+        ),
+      ],
     );
   }
 }
