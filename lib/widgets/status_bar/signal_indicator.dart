@@ -16,7 +16,7 @@ class SignalIndicator extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         CustomPaint(
-          size: const Size(20, 9),
+          size: const Size(20, 10),
           painter: SignalPainter(stregth: stregth),
         ),
         if (operator != null) ...[

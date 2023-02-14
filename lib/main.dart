@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:forstall/status_bar/status_bar.dart';
+import 'package:flutter/services.dart';
+import 'package:forstall/widgets/dock/dock.dart';
+import 'package:forstall/widgets/status_bar/status_bar.dart';
 
 void main() {
   runApp(const ForstallApp());
@@ -22,6 +24,7 @@ class Springboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     return CupertinoPageScaffold(
       child: Stack(
         fit: StackFit.expand,
@@ -32,7 +35,9 @@ class Springboard extends StatelessWidget {
           ),
           Column(
             children: const [
-              StatusBar(),
+              StatusBar.translucent(),
+              Spacer(),
+              Dock(),
             ],
           ),
         ],

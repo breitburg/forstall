@@ -2,16 +2,21 @@ import 'package:flutter/cupertino.dart';
 
 class BatteryIndicator extends StatelessWidget {
   final double percentage;
-  final bool showPercentage;
+  final bool showPercentage, isCharging;
 
   const BatteryIndicator({
     super.key,
     required this.percentage,
     this.showPercentage = false,
+    this.isCharging = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final fillColor = isCharging
+        ? CupertinoColors.activeGreen
+        : (percentage <= 0.2 ? CupertinoColors.systemRed : null);
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -20,8 +25,8 @@ class BatteryIndicator extends StatelessWidget {
           const SizedBox(width: 3),
         ],
         CustomPaint(
-          size: const Size(21, 10),
-          painter: BatteryPainter(percentage: percentage),
+          size: const Size(22, 10),
+          painter: BatteryPainter(percentage: percentage, fillColor: fillColor),
         ),
       ],
     );
@@ -29,7 +34,7 @@ class BatteryIndicator extends StatelessWidget {
 }
 
 class BatteryPainter extends CustomPainter {
-  final double percentage;
+  final double percentage, fillPadding;
   final Color borderColor, fillColor;
   final Size pimpSize;
 
@@ -38,6 +43,7 @@ class BatteryPainter extends CustomPainter {
     Color? fillColor,
     this.percentage = 1,
     this.pimpSize = const Size(2, 4),
+    this.fillPadding = 2,
   })  : fillColor = fillColor ?? borderColor,
         assert(0 <= percentage && percentage <= 1);
 
@@ -52,7 +58,6 @@ class BatteryPainter extends CustomPainter {
 
     final borderRect =
         Rect.fromLTRB(0, 0, size.width - pimpSize.width, size.height);
-    final fillRect = borderRect.deflate(2);
 
     // Draw the battery border
     canvas.drawRRect(
@@ -75,18 +80,20 @@ class BatteryPainter extends CustomPainter {
     );
 
     // Draw the battery fill
-    if (percentage == 0) return;
+    if (percentage <= 0) return;
     canvas.drawRect(
       Rect.fromLTRB(
-        fillRect.left,
-        fillRect.top,
-        fillRect.right * percentage,
-        fillRect.bottom,
+        borderRect.left + fillPadding,
+        borderRect.top + fillPadding,
+        borderRect.left +
+            fillPadding +
+            (borderRect.right - fillPadding * 2) * percentage,
+        borderRect.bottom - fillPadding,
       ),
       fillPaint,
     );
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
