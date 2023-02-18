@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:forstall/core/page_route.dart';
 import 'package:forstall/screens/springboard.dart';
@@ -13,6 +14,7 @@ class ForstallApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return WidgetsApp(
       pageRouteBuilder: <T>(RouteSettings settings, WidgetBuilder builder) {
         return ForstallPageRoute<T>(settings: settings, builder: builder);
@@ -22,17 +24,15 @@ class ForstallApp extends StatelessWidget {
           return const SizedBox.shrink();
         }
 
-        final effectiveMediaQueryData = MediaQuery.of(context);
         const statusBar = StatusBar.translucent();
 
         return Stack(
           children: [
             MediaQuery(
-              data: effectiveMediaQueryData.copyWith(
-                padding: effectiveMediaQueryData.padding +
-                    EdgeInsets.only(
-                      top: statusBar.preferredSize.height,
-                    ), // Status Bar Height
+              data: MediaQuery.of(context).copyWith(
+                padding: EdgeInsets.only(
+                  top: statusBar.preferredSize.height,
+                ), // Status Bar Height
               ),
               child: child,
             ),

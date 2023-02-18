@@ -28,11 +28,11 @@ class Dock extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              SpringboardAppIcon(title: Text('Phone')),
-              SpringboardAppIcon(title: Text('Mail')),
-              SpringboardAppIcon(title: Text('Safari')),
-              SpringboardAppIcon(title: Text('Music')),
+            children: [
+              SpringboardAppIcon(title: const Text('Phone'), onTap: () {}),
+              SpringboardAppIcon(title: const Text('Mail'), onTap: () {}),
+              SpringboardAppIcon(title: const Text('Safari'), onTap: () {}),
+              SpringboardAppIcon(title: const Text('Music'), onTap: () {}),
             ],
           ),
         ),

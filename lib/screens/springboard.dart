@@ -27,25 +27,27 @@ class Springboard extends StatelessWidget {
             child: PageView.builder(
               itemCount: 3,
               itemBuilder: (BuildContext context, int index) {
+                const rows = 5;
+                const columns = 4;
+                final offset = index * rows * columns;
+
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    for (var row = 0; row < 5; row++)
+                    for (var row = 0; row < rows; row++)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          for (var app = 1; app <= 4; app++)
-                            GestureDetector(
+                          for (var app = 0; app < columns; app++)
+                            SpringboardAppIcon(
+                              title: Text(
+                                'App ${offset + row * columns + app + 1}',
+                              ),
                               onTap: () => Navigator.of(context).push(
                                 ForstallPageRoute(
                                   builder: (BuildContext context) {
                                     return const SampleScreen();
                                   },
-                                ),
-                              ),
-                              child: SpringboardAppIcon(
-                                title: Text(
-                                  'App ${index * 4 * 5 + (row * 4) + app}',
                                 ),
                               ),
                             ),
