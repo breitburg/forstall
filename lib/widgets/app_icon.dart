@@ -25,6 +25,7 @@ class SpringboardAppIcon extends StatelessWidget {
                 fontSize: 12,
                 fontFamily: 'Helvetica',
                 fontWeight: FontWeight.bold,
+                color: Color.fromRGBO(255, 255, 255, 1),
                 height: 1.2,
                 shadows: [
                   BoxShadow(

@@ -59,6 +59,7 @@ class StatusBar extends StatelessWidget with PreferredSizeWidget {
         fontSize: 12,
         fontFamily: 'Helvetica',
         fontWeight: FontWeight.bold,
+        color: Color.fromRGBO(255, 255, 255, 1),
         height: 1.2,
       ),
       child: Row(
