@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:forstall/core/page_route.dart';
-import 'package:forstall/screens/sample.dart';
-import 'package:forstall/widgets/app_icon.dart';
-import 'package:forstall/widgets/dock/dock.dart';
+import 'package:forstall/screens/springboard.dart';
 import 'package:forstall/widgets/status_bar/status_bar.dart';
 
 void main() {
@@ -45,63 +43,6 @@ class ForstallApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       color: const Color.fromRGBO(0, 0, 0, 1),
       home: const Springboard(),
-    );
-  }
-}
-
-class Springboard extends StatelessWidget {
-  const Springboard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final effectivePadding = MediaQuery.of(context).padding;
-
-    return Container(
-      padding: effectivePadding,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: Image.asset('assets/bubbles.jpeg').image,
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Column(
-        verticalDirection: VerticalDirection.up,
-        children: [
-          Expanded(
-            child: PageView.builder(
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    for (var row = 0; row < 5; row++)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          for (var app = 0; app < 4; app++)
-                            GestureDetector(
-                              onTap: () => Navigator.of(context).push(
-                                ForstallPageRoute(
-                                  builder: (BuildContext context) {
-                                    return const SampleScreen();
-                                  },
-                                ),
-                              ),
-                              child: SpringboardAppIcon(
-                                title: Text(
-                                  'App ${index * 4 * 5 + (row * 4) + app}',
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                  ],
-                );
-              },
-            ),
-          ),
-          const Dock(),
-        ].reversed.toList(),
-      ),
     );
   }
 }

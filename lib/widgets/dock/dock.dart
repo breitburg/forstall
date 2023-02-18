@@ -1,25 +1,50 @@
 import 'package:flutter/widgets.dart';
+import 'package:forstall/widgets/app_icon.dart';
 
 class Dock extends StatelessWidget {
   const Dock({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: const BoxConstraints.tightFor(height: 45),
-      decoration: const BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            offset: Offset(0, -20),
-            color: Color.fromRGBO(0, 0, 0, 1),
-            blurRadius: 90,
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        DecoratedBox(
+          decoration: const BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, -20),
+                color: Color.fromRGBO(0, 0, 0, 1),
+                blurRadius: 90,
+              ),
+            ],
           ),
-        ],
-      ),
-      child: CustomPaint(
-        painter: DockPainter(),
-        child: Container(),
-      ),
+          child: CustomPaint(
+            size: const Size.fromHeight(45),
+            painter: DockPainter(),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: const [
+              SpringboardAppIcon(
+                title: Text('Phone'),
+              ),
+              SpringboardAppIcon(
+                title: Text('Phone'),
+              ),
+              SpringboardAppIcon(
+                title: Text('Phone'),
+              ),
+              SpringboardAppIcon(
+                title: Text('Phone'),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
