@@ -14,6 +14,7 @@ class Springboard extends StatelessWidget {
     return Container(
       padding: effectivePadding,
       decoration: BoxDecoration(
+        color: const Color.fromRGBO(210, 210, 210, 1),
         image: DecorationImage(
           image: Image.asset('assets/bubbles.jpeg').image,
           fit: BoxFit.cover,
@@ -24,6 +25,7 @@ class Springboard extends StatelessWidget {
         children: [
           Expanded(
             child: PageView.builder(
+              itemCount: 3,
               itemBuilder: (BuildContext context, int index) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -32,7 +34,7 @@ class Springboard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          for (var app = 0; app < 4; app++)
+                          for (var app = 1; app <= 4; app++)
                             GestureDetector(
                               onTap: () => Navigator.of(context).push(
                                 ForstallPageRoute(

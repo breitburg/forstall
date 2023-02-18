@@ -31,8 +31,8 @@ class ForstallApp extends StatelessWidget {
               data: effectiveMediaQueryData.copyWith(
                 padding: effectiveMediaQueryData.padding +
                     EdgeInsets.only(
-                        top: statusBar
-                            .preferredSize.height), // Status Bar Height
+                      top: statusBar.preferredSize.height,
+                    ), // Status Bar Height
               ),
               child: child,
             ),

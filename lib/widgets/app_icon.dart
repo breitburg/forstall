@@ -42,7 +42,9 @@ class SpringboardAppIcon extends StatelessWidget {
 }
 
 class AppIcon extends StatelessWidget {
-  const AppIcon({super.key});
+  final bool glossy;
+
+  const AppIcon({super.key, this.glossy = true});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,14 @@ class AppIcon extends StatelessWidget {
       constraints: BoxConstraints.tight(const Size.square(57)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: const Color.fromRGBO(255, 255, 255, 1),
+        gradient: const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color.fromRGBO(255, 255, 255, 1),
+            Color.fromRGBO(190, 190, 190, 1),
+          ],
+        ),
         boxShadow: const [
           BoxShadow(
             color: Color.fromRGBO(0, 0, 0, 0.5),
@@ -60,10 +69,31 @@ class AppIcon extends StatelessWidget {
           ),
         ],
       ),
-      child: const Placeholder(
-        strokeWidth: 2,
-        color: Color.fromRGBO(0, 0, 0, 0.1),
+      child: CustomPaint(
+        painter: glossy ? const IconGlossPainter() : null,
       ),
     );
   }
+}
+
+class IconGlossPainter extends CustomPainter {
+  final double padding;
+
+  const IconGlossPainter({this.padding = 10});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawOval(
+      Rect.fromLTRB(
+        -padding,
+        -padding * 2,
+        size.width + padding,
+        (size.height + padding) / 2,
+      ),
+      Paint()..color = const Color.fromRGBO(255, 255, 255, 0.4),
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }

@@ -29,18 +29,10 @@ class Dock extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: const [
-              SpringboardAppIcon(
-                title: Text('Phone'),
-              ),
-              SpringboardAppIcon(
-                title: Text('Phone'),
-              ),
-              SpringboardAppIcon(
-                title: Text('Phone'),
-              ),
-              SpringboardAppIcon(
-                title: Text('Phone'),
-              ),
+              SpringboardAppIcon(title: Text('Phone')),
+              SpringboardAppIcon(title: Text('Mail')),
+              SpringboardAppIcon(title: Text('Safari')),
+              SpringboardAppIcon(title: Text('Music')),
             ],
           ),
         ),
