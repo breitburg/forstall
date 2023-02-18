@@ -3,9 +3,18 @@ import 'package:forstall/core/page_route.dart';
 import 'package:forstall/screens/sample.dart';
 import 'package:forstall/widgets/app_icon.dart';
 import 'package:forstall/widgets/dock/dock.dart';
+import 'package:forstall/widgets/page_dots.dart';
 
-class Springboard extends StatelessWidget {
+class Springboard extends StatefulWidget {
   const Springboard({super.key});
+
+  @override
+  State<Springboard> createState() => _SpringboardState();
+}
+
+class _SpringboardState extends State<Springboard> {
+  final PageController controller = PageController();
+  final int length = 6;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +34,8 @@ class Springboard extends StatelessWidget {
         children: [
           Expanded(
             child: PageView.builder(
-              itemCount: 3,
+              controller: controller,
+              itemCount: length,
               itemBuilder: (BuildContext context, int index) {
                 const rows = 5;
                 const columns = 4;
@@ -57,6 +67,10 @@ class Springboard extends StatelessWidget {
                 );
               },
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6.0),
+            child: PageDots(controller: controller, length: length),
           ),
           const Dock(),
         ].reversed.toList(),

@@ -25,7 +25,7 @@ class Dock extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.only(bottom: 8.0, top: 14.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -42,7 +42,7 @@ class Dock extends StatelessWidget {
 }
 
 class DockPainter extends CustomPainter {
-  final perspective = 20.0;
+  final perspective = 10.0;
   final chin = 4;
 
   @override
@@ -52,7 +52,7 @@ class DockPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     final chinPaint = Paint()
-      ..color = const Color.fromRGBO(0, 0, 0, 0.1)
+      ..color = const Color.fromRGBO(0, 0, 0, 0.15)
       ..style = PaintingStyle.fill;
 
     canvas.drawRect(

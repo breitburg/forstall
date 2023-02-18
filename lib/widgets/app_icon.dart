@@ -103,7 +103,7 @@ class IconGlossPainter extends CustomPainter {
         -padding,
         -padding * 2,
         size.width + padding,
-        (size.height + padding) / 2,
+        size.height / 2 + 5,
       ),
       Paint()..color = color,
     );

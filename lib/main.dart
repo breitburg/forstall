@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:forstall/core/page_route.dart';
 import 'package:forstall/screens/springboard.dart';
@@ -14,11 +13,8 @@ class ForstallApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return Center(
       child: Container(
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
         constraints: const BoxConstraints.tightFor(width: 320, height: 568),
         child: WidgetsApp(
           pageRouteBuilder: <T>(RouteSettings settings, WidgetBuilder builder) {
