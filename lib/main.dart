@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:forstall/widgets/dock/dock.dart';
 import 'package:forstall/widgets/status_bar/status_bar.dart';
 

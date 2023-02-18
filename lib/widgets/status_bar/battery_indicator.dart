@@ -13,9 +13,9 @@ class BatteryIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fillColor = isCharging
-        ? CupertinoColors.activeGreen
-        : (percentage <= 0.2 ? CupertinoColors.systemRed : null);
+    final fillColor = percentage <= 0.2 && !isCharging
+        ? CupertinoColors.systemRed
+        : null;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -26,7 +26,11 @@ class BatteryIndicator extends StatelessWidget {
         ],
         CustomPaint(
           size: const Size(22, 10),
-          painter: BatteryPainter(percentage: percentage, fillColor: fillColor),
+          painter: BatteryPainter(
+            percentage: percentage,
+            fillColor: fillColor,
+            bolt: isCharging,
+          ),
         ),
       ],
     );
@@ -37,6 +41,7 @@ class BatteryPainter extends CustomPainter {
   final double percentage, fillPadding;
   final Color borderColor, fillColor;
   final Size pimpSize;
+  final bool bolt;
 
   const BatteryPainter({
     this.borderColor = const Color.fromRGBO(255, 255, 255, 1),
@@ -44,6 +49,7 @@ class BatteryPainter extends CustomPainter {
     this.percentage = 1,
     this.pimpSize = const Size(2, 4),
     this.fillPadding = 2,
+    this.bolt = false,
   })  : fillColor = fillColor ?? borderColor,
         assert(0 <= percentage && percentage <= 1);
 
@@ -80,18 +86,35 @@ class BatteryPainter extends CustomPainter {
     );
 
     // Draw the battery fill
-    if (percentage <= 0) return;
-    canvas.drawRect(
-      Rect.fromLTRB(
-        borderRect.left + fillPadding,
-        borderRect.top + fillPadding,
-        borderRect.left +
-            fillPadding +
-            (borderRect.right - fillPadding * 2) * percentage,
-        borderRect.bottom - fillPadding,
-      ),
-      fillPaint,
-    );
+    if (percentage > 0) {
+      canvas.drawRect(
+        Rect.fromLTRB(
+          borderRect.left + fillPadding,
+          borderRect.top + fillPadding,
+          borderRect.left +
+              fillPadding +
+              (borderRect.right - fillPadding * 2) * percentage,
+          borderRect.bottom - fillPadding,
+        ),
+        fillPaint,
+      );
+    }
+
+    // Draw the lightning bolt when charging
+    if (bolt) {
+      final boltSize = Size(10, size.height + 3);
+      final boltOffset = Offset(borderRect.width / 2 - boltSize.width / 2, 0);
+      final boltPath = Path()
+        ..moveTo(boltOffset.dx + boltSize.width / 2 + boltSize.width * 0.2,
+            (size.height - boltSize.height) / 2)
+        ..lineTo(boltOffset.dx, size.height / 2)
+        ..lineTo(boltOffset.dx + boltSize.width, size.height / 2)
+        ..lineTo(boltOffset.dx + boltSize.width / 2 - boltSize.width * 0.2,
+            (size.height - boltSize.height) / 2 + boltSize.height)
+        ..close();
+
+      canvas.drawPath(boltPath, borderPaint..style = PaintingStyle.fill);
+    }
   }
 
   @override

@@ -85,8 +85,9 @@ class StatusBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: const [
                 BatteryIndicator(
-                  percentage: 0.4,
+                  percentage: .16,
                   showPercentage: true,
+                  isCharging: true,
                 ),
               ],
             ),
