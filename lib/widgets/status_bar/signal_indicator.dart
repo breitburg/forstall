@@ -1,14 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 
 class SignalIndicator extends StatelessWidget {
   final String? operator;
   final double stregth;
 
-  const SignalIndicator(
-    this.stregth, {
-    super.key,
-    this.operator,
-  });
+  const SignalIndicator(this.stregth, {super.key, this.operator});
 
   @override
   Widget build(BuildContext context) {

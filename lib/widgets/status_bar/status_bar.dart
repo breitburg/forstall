@@ -1,11 +1,11 @@
 export 'battery_indicator.dart';
 export 'signal_indicator.dart';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:forstall/widgets/status_bar/signal_indicator.dart';
 import 'package:forstall/widgets/status_bar/battery_indicator.dart';
 
-class StatusBar extends StatelessWidget {
+class StatusBar extends StatelessWidget with PreferredSizeWidget {
   final Color backgroundColor;
   final Border? border;
   final bool hasShadow;
@@ -32,8 +32,8 @@ class StatusBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(3),
-      constraints: const BoxConstraints.tightFor(height: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 3),
+      constraints: BoxConstraints.tight(preferredSize),
       decoration: BoxDecoration(
         color: backgroundColor,
         border: border,
@@ -66,11 +66,9 @@ class StatusBar extends StatelessWidget {
         children: [
           Expanded(
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: const [
-                SignalIndicator(
-                  0.5,
-                  operator: 'AT&T',
-                ),
+                SignalIndicator(0.5, operator: 'AT&T'),
                 SizedBox(width: 8),
                 Text('LTE'),
               ],
@@ -82,13 +80,10 @@ class StatusBar extends StatelessWidget {
           ),
           Expanded(
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.end,
               children: const [
-                BatteryIndicator(
-                  percentage: .16,
-                  showPercentage: true,
-                  isCharging: true,
-                ),
+                BatteryIndicator(0.36, showPercentage: true),
               ],
             ),
           ),
@@ -96,4 +91,7 @@ class StatusBar extends StatelessWidget {
       ),
     );
   }
+  
+  @override
+  Size get preferredSize => const Size.fromHeight(20);
 }

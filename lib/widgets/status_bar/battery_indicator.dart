@@ -1,27 +1,22 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 
 class BatteryIndicator extends StatelessWidget {
   final double percentage;
-  final bool showPercentage, isCharging;
+  final bool showPercentage, charging;
 
-  const BatteryIndicator({
-    super.key,
-    required this.percentage,
-    this.showPercentage = false,
-    this.isCharging = false,
-  });
+  const BatteryIndicator(this.percentage,
+      {super.key, this.showPercentage = false, this.charging = false});
 
   @override
   Widget build(BuildContext context) {
-    final fillColor = percentage <= 0.2 && !isCharging
-        ? CupertinoColors.systemRed
-        : null;
+    final fillColor =
+        percentage <= 0.2 && !charging ? const Color.fromRGBO(255, 0, 0, 1) : null;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         if (showPercentage) ...[
-          Text('${(percentage * 100).round()}%'),
+          Text('${(percentage * 100).round()}%', textAlign: TextAlign.end),
           const SizedBox(width: 3),
         ],
         CustomPaint(
@@ -29,7 +24,7 @@ class BatteryIndicator extends StatelessWidget {
           painter: BatteryPainter(
             percentage: percentage,
             fillColor: fillColor,
-            bolt: isCharging,
+            bolt: charging,
           ),
         ),
       ],
